@@ -22,17 +22,13 @@ class DetailViewController: UIViewController {
     weak var delegate: DetailViewControllerDelegate?
     var isCancelled = false
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Apply the data to the view
         firstNameLabel.text=person?.firstName
         lasNameLabel.text=person?.lastName
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        
-      
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -45,7 +41,7 @@ class DetailViewController: UIViewController {
         let alertController = UIAlertController(title: "Suppression", message: "Voulez vous vraiment supprimer ce contact?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let back = UIAlertAction(title: "OK", style: .default) { ( back) in
-            //  Show the progress bar and the abort button 
+            //  Show the progress bar and the abort button
             self.progressBar.alpha = 1
             self.abortButton.alpha = 1
             // closure at the end of the progress bar

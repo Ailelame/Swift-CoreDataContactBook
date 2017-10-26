@@ -91,15 +91,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
+// Creation of an extension to ease the use of AppDelegate
 extension UIViewController{
-    
     func appDelegate() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
-    
-    
-    
-    
     
 }
 
