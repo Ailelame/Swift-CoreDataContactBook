@@ -9,6 +9,13 @@
 import UIKit
 import CoreData
 
+/*
+         Entry point of the app
+ 
+         Samples of code available at the end (* In french *)
+ */
+
+
 class ContactsTableViewController: UITableViewController {
 
     var contacts = [Person]()
@@ -18,95 +25,41 @@ class ContactsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Method calling at the database to get a list of users and fill the contacts array
         reloadDataFromDatabase()
         
-     /*             METHODE DE BOURRIN --- Voir extension pour un truc plus sexy
-        if let valuePreference = UserDefaults.standard.value(forKey: preferenceKey){
-            print("la value est ", valuePreference)
-        }else{
-            print("first launch")
-            
-            let alertController = UIAlertController(title: "Bienvenue !", message: "Bienvenue sur la super application contact book! \n Vous pouvez dès à présent appuyer sur le bouton plus en haut à droite pour ajouter des contacts ", preferredStyle: .alert)
-     
-            let back = UIAlertAction(title: "OK", style: .default)
-
-            alertController.addAction(back)
-            self.present(alertController, animated:true)
-            
-           UserDefaults.standard.set(preference , forKey: preferenceKey)
-        }
-      */
-        
+        // check if it's the first time the user launch the app
         if(UserDefaults.standard.isFirstLaunch()){
+            // Alert to welcome him
             let alertController = UIAlertController(title: "Bienvenue !", message: "Bienvenue sur la super application contact book! \n Vous pouvez dès à présent appuyer sur le bouton plus en haut à droite pour ajouter des contacts ", preferredStyle: .alert)
-            
             let back = UIAlertAction(title: "OK", style: .default)
-            
             alertController.addAction(back)
             self.present(alertController, animated:true)
         }
+        /// Line ensuring that the user will not see the message anymore
         UserDefaults.standard.userSawWelcomeMessage()
-
-        /*      AJOUT D'UN USER
- 
-        //NS MAnaged object context initialization
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
-            let context = appDelegate.persistentContainer.viewContext
-            let person = Person(entity: Person.entity(), insertInto: context)
-            person.firstName = "Bilbo"
-            person.lastName = "SAQUET"
-            do{
-                try context.save()
-                }catch{
-                    print(error.localizedDescription)
-                }
-            }
         
-        
-        */
-        
-        
+        // Setting up the title
         self.title = "My Contact"
-
-        print("test")
-   
-        //Import a new name from a file
-/*        let namesPlist = Bundle.main.path(forResource: "names.plist", ofType: nil)
-        if let namePath = namesPlist{
-            let url = URL(fileURLWithPath: namePath)
-           let dataArray = NSArray(contentsOf: url)
-                print(dataArray)
-            
-            for dict in dataArray!{
-                if let dictionnary = dict as? [String : String]{
-               //     let person  = Person(firstName: dictionnary["name"]!, lastName: dictionnary["lastname"]!)
-               //     contacts.append(person)
-                }
-            }
-        }
-        */
-        
  
+        // Adding an add button with navigation
         let addContact = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addContactPress))
         self.navigationItem.rightBarButtonItem = addContact
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        // Make sure that the table is up to date when the view is called
+        reloadDataFromDatabase()
+    }
 
     @objc func addContactPress(){
-        //Create push addViewcontroller
-        //set the delegate
+        // Setting up the delegate
         let controller = AddViewController(nibName: nil, bundle: nil)
         controller.delegate = self
-        
         self.navigationController?.pushViewController(controller, animated: true)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -118,7 +71,7 @@ class ContactsTableViewController: UITableViewController {
         return contacts.count
     }
 
-    
+        // Adapt the cells of the table to the array of persons
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableViewCell", for: indexPath)
 
@@ -127,10 +80,10 @@ class ContactsTableViewController: UITableViewController {
             contactCell.lastNameLabel.text = contacts[indexPath.row].lastName
             
         }
-        
         return cell
     }
     
+    // Onclick on each cells
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = DetailViewController(nibName: nil, bundle: nil)
         detailViewController.delegate = self
@@ -139,31 +92,35 @@ class ContactsTableViewController: UITableViewController {
         
     }
     
+    // Control of the height of each cells
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
     
+    // Method in charge of loading the data from the DB
     func reloadDataFromDatabase(){
+        // Gonna fetch the Persons in the DB
         let fetchRequest = NSFetchRequest<Person>(entityName : "Person")
         let sortFirstName = NSSortDescriptor(key: "firstName", ascending: true)
         let sortLastName = NSSortDescriptor(key: "lastName", ascending: true)
         fetchRequest.sortDescriptors = [sortFirstName , sortLastName]
         
         let context = self.appDelegate().persistentContainer.viewContext
-        
         print (try? context.fetch(fetchRequest))
         
         guard let personDB = try? context.fetch(fetchRequest) else{
             return
         }
+        // Filling the array of persons
         contacts = personDB
         self.tableView.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        reloadDataFromDatabase()
-    }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 }
 
 extension ContactsTableViewController : AddViewControllerDelegate{
@@ -179,18 +136,16 @@ extension ContactsTableViewController : DetailViewControllerDelegate{
         contacts = contacts.filter({$0 != deleteContact})
         self.navigationController?.popViewController(animated: true)
         self.tableView.reloadData()
-        
-        
-        
     }
     
 }
+// Allow the use of a variable in the extension
 enum DefaultPreferencesKey : String{
     case isFirstLaunch = "isFirstLaunch"
 }
 
 extension UserDefaults {
-    
+    // Ease the use of the UserDefaults
     func isFirstLaunch() -> Bool{
         return (UserDefaults.standard.value(forKey: DefaultPreferencesKey.isFirstLaunch.rawValue) as? Bool) ?? true
     }
@@ -199,3 +154,64 @@ extension UserDefaults {
     }
 }
 
+
+
+
+/*
+ 
+                             *********** COMMENT SECTION *************
+ 
+ 
+
+         CONTACTER LA BASE DE DONNEES        METHODE DE BOURRIN --- Voir extension pour un truc plus sexy
+ if let valuePreference = UserDefaults.standard.value(forKey: preferenceKey){
+ print("la value est ", valuePreference)
+ }else{
+ print("first launch")
+ 
+ let alertController = UIAlertController(title: "Bienvenue !", message: "Bienvenue sur la super application contact book! \n Vous pouvez dès à présent appuyer sur le bouton plus en haut à droite pour ajouter des contacts ", preferredStyle: .alert)
+ 
+ let back = UIAlertAction(title: "OK", style: .default)
+ 
+ alertController.addAction(back)
+ self.present(alertController, animated:true)
+ 
+ UserDefaults.standard.set(preference , forKey: preferenceKey)
+ }
+ 
+ 
+ 
+         AJOUT D'UN USER A LA BDD
+ 
+         NS MAnaged object context initialization
+ if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
+ let context = appDelegate.persistentContainer.viewContext
+ let person = Person(entity: Person.entity(), insertInto: context)
+ person.firstName = "Bilbo"
+ person.lastName = "SAQUET"
+ do{
+ try context.save()
+ }catch{
+ print(error.localizedDescription)
+ }
+ }
+ 
+ 
+ 
+         CHARGER DES DONN2ES DEPUIS UN FICHIER EN DUR
+ /*        let namesPlist = Bundle.main.path(forResource: "names.plist", ofType: nil)
+ if let namePath = namesPlist{
+ let url = URL(fileURLWithPath: namePath)
+ let dataArray = NSArray(contentsOf: url)
+ print(dataArray)
+ 
+ for dict in dataArray!{
+ if let dictionnary = dict as? [String : String]{
+ //     let person  = Person(firstName: dictionnary["name"]!, lastName: dictionnary["lastname"]!)
+ //     contacts.append(person)
+ }
+ }
+ }
+ */
+ 
+ */

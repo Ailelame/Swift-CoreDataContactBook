@@ -19,17 +19,12 @@ class AddViewController: UIViewController {
     
     weak var delegate: AddViewControllerDelegate?
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let validateCreation = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(validateContact))
         self.navigationItem.rightBarButtonItem = validateCreation
-
         
-        // Do any additional setup after loading the view.
     }
     
     @objc func validateContact(){
@@ -39,7 +34,7 @@ class AddViewController: UIViewController {
         if(lastName == "" || firstName == "" ){
             return
         }
-        
+        // Add the contact to the DB
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate{
             let context = appDelegate.persistentContainer.viewContext
             let person = Person(entity: Person.entity(), insertInto: context)
@@ -52,24 +47,11 @@ class AddViewController: UIViewController {
             }
             self.delegate?.addNewContact()
         }
-     
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
