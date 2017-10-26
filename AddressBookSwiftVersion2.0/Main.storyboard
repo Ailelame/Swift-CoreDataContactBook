@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eYN-eH-vac">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="9F5-C0-kcf">
+            <objects>
+                <navigationController id="eYN-eH-vac" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EeK-jo-5qt">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="QJS-KQ-ytg" kind="relationship" relationship="rootViewController" id="KNh-NZ-7Jd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XRt-kG-S8O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="407" y="8"/>
+        </scene>
+        <!--Contacts Table View Controller-->
+        <scene sceneID="nsL-SK-leU">
+            <objects>
+                <tableViewController id="QJS-KQ-ytg" customClass="ContactsTableViewController" customModule="AddressBookSwiftVersion2_0" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6wZ-nY-5MX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactTableViewCell" rowHeight="80" id="96t-sR-JV7" customClass="ContactTableViewCell" customModule="AddressBookSwiftVersion2_0" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="96t-sR-JV7" id="Dca-69-hWW">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbU-F3-pe2">
+                                            <rect key="frame" x="18" y="18" width="284" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxg-fF-PTA">
+                                            <rect key="frame" x="18" y="49" width="284" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="xxg-fF-PTA" secondAttribute="trailing" constant="10" id="0sn-NA-aVK"/>
+                                        <constraint firstItem="xxg-fF-PTA" firstAttribute="top" secondItem="dbU-F3-pe2" secondAttribute="bottom" constant="10" id="9No-Ju-7YR"/>
+                                        <constraint firstItem="xxg-fF-PTA" firstAttribute="leading" secondItem="Dca-69-hWW" secondAttribute="leadingMargin" constant="10" id="Ak4-Ti-jb6"/>
+                                        <constraint firstItem="dbU-F3-pe2" firstAttribute="top" secondItem="Dca-69-hWW" secondAttribute="topMargin" constant="10" id="Aqa-u4-2sv"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="dbU-F3-pe2" secondAttribute="trailing" constant="10" id="Ogq-cE-a8D"/>
+                                        <constraint firstItem="dbU-F3-pe2" firstAttribute="leading" secondItem="Dca-69-hWW" secondAttribute="leadingMargin" constant="10" id="k9I-Ux-3F6"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="firstNameLabel" destination="xxg-fF-PTA" id="Gau-6o-xjV"/>
+                                    <outlet property="lastNameLabel" destination="dbU-F3-pe2" id="fkS-CC-7OU"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="QJS-KQ-ytg" id="yN6-EI-9vE"/>
+                            <outlet property="delegate" destination="QJS-KQ-ytg" id="JAg-7z-dB1"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="J17-J2-zQ9"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="awf-FJ-mfm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1291.875" y="7.394366197183099"/>
+        </scene>
+    </scenes>
+</document>

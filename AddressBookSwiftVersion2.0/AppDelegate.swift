@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  AddressBookSwiftVersion2.0
+//  AddressBookSwift4
 //
-//  Created by Thomas on 26/10/2017.
+//  Created by Thomas on 25/10/2017.
 //  Copyright © 2017 Thomas. All rights reserved.
 //
 
@@ -47,13 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
+        
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "AddressBookSwiftVersion2_0")
+        let container = NSPersistentContainer(name: "AddressBookSwift4")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -89,5 +90,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+}
+extension UIViewController{
+    
+    func appDelegate() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    
+    
+    
+    
 }
 

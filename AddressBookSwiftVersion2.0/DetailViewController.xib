@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailViewController" customModule="AddressBookSwift4" customModuleProvider="target">
+            <connections>
+                <outlet property="abortButton" destination="ab4-Kd-Kg0" id="UvF-fL-nbP"/>
+                <outlet property="firstNameLabel" destination="3o9-t6-IoR" id="s0g-pS-hNy"/>
+                <outlet property="lasNameLabel" destination="uea-AZ-CBN" id="GDt-Y6-Wep"/>
+                <outlet property="progressBar" destination="91y-pL-BlL" id="aaO-nv-woa"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3o9-t6-IoR">
+                    <rect key="frame" x="10" y="70" width="300" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uea-AZ-CBN">
+                    <rect key="frame" x="10" y="121" width="300" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91y-pL-BlL">
+                    <rect key="frame" x="85" y="406" width="150" height="2"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </progressView>
+                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ab4-Kd-Kg0">
+                    <rect key="frame" x="137" y="497" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Abort">
+                        <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="abortButton:" destination="-1" eventType="touchUpInside" id="dCL-XS-CvJ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5GK-2u-nh6">
+                    <rect key="frame" x="102" y="230" width="117" height="108"/>
+                    <state key="normal" title="delete"/>
+                    <connections>
+                        <action selector="deleteAction:" destination="-1" eventType="touchUpInside" id="9cn-cD-c3h"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="uea-AZ-CBN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="3Ch-I5-gei"/>
+                <constraint firstItem="uea-AZ-CBN" firstAttribute="top" secondItem="3o9-t6-IoR" secondAttribute="bottom" constant="30" id="SJ7-kh-gqe"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3o9-t6-IoR" secondAttribute="trailing" constant="10" id="TpK-3C-9II"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="uea-AZ-CBN" secondAttribute="trailing" constant="10" id="eRT-FT-R58"/>
+                <constraint firstItem="3o9-t6-IoR" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="ghS-oV-Tpi"/>
+                <constraint firstItem="3o9-t6-IoR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="i8s-nb-xZK"/>
+                <constraint firstItem="5GK-2u-nh6" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="lqO-6B-Hdf"/>
+                <constraint firstItem="5GK-2u-nh6" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="pfu-Nu-MiS"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+</document>
