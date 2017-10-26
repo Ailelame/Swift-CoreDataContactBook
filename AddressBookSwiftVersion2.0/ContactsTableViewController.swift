@@ -89,7 +89,6 @@ class ContactsTableViewController: UITableViewController {
         detailViewController.delegate = self
         detailViewController.person = self.contacts[indexPath.row]
         self.navigationController?.pushViewController(detailViewController, animated: true)
-        
     }
     
     // Control of the height of each cells
@@ -132,8 +131,7 @@ extension ContactsTableViewController : AddViewControllerDelegate{
 }
 
 extension ContactsTableViewController : DetailViewControllerDelegate{
-    func deleteContact(deleteContact: Person){
-        contacts = contacts.filter({$0 != deleteContact})
+    func deleteContact(){
         self.navigationController?.popViewController(animated: true)
         self.tableView.reloadData()
     }
