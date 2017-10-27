@@ -77,32 +77,27 @@ class DetailViewController: UIViewController {
     @IBAction func abortButton(_ sender: Any) {                                             // Allows the user to cancel the removal of the contact
         if(isCancelled == false){
            isCancelled=true                                                                 // Toggle the isCancelled variable to abord the progress of the progressbar
-           progressBar.setProgress(0, animated: true)                                       // Reinitialize the progress bar 
+           progressBar.setProgress(0, animated: true)                                       // Reinitialize the progress bar
         }
     }
     
     // Progress bar method
     func launchProgressBar(closure:@escaping () -> ()){
         DispatchQueue.global(qos: .userInitiated).async {
-            var counter : Float = 0
-            // Counter
-            while(counter<1 && !self.isCancelled){
+            var counter : Float = 0                                                         // Initialize the counter
+            while(counter<1 && !self.isCancelled){                                          // Check if the counter is not at the end or if it hasn't been cancelled
                 counter = counter + 0.01
                 print("compteur = \(counter)")
                 DispatchQueue.main.async {
-                    //updating the progressBar
-                     self.progressBar.setProgress(counter, animated: true)
+                     self.progressBar.setProgress(counter, animated: true)                   //updating the progressBar
                 }
-               
                 Thread.sleep(forTimeInterval: 0.05)
             }
-            DispatchQueue.main.async {
-                // At the end of the progress, check if it has not been aborted
+            DispatchQueue.main.async {                                                       // At the end of the progress, check if it has not been aborted
                 if(!self.isCancelled){
                     closure()
                 }
-                //Hide the progress bar and the abort button
-                self.progressBar.alpha = 0
+                self.progressBar.alpha = 0                                                   // Hide the progress bar, the abort button and shows the delete button
                 self.abortButton.alpha = 0
                 self.deleteButton.alpha = 1
                 self.isCancelled=false
@@ -110,12 +105,12 @@ class DetailViewController: UIViewController {
         }
     }
     
-    func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+    func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) { // function to get the image
         URLSession.shared.dataTask(with: url) { data, response, error in
             completion(data, response, error)
             }.resume()
     }
-    // Image Loading
+    // Method to load the image and assign it to the view
     func downloadImage(url: URL) {
         print("Download Started")
         getDataFromUrl(url: url) { data, response, error in
