@@ -22,11 +22,38 @@ class ContactsTableViewController: UITableViewController {
     let preferenceKey : String = "isFirstLaunch"
     let preference : Bool = false
     
+    var resultController : NSFetchedResultsController<Person>!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*
+                 URL CONNEXION
+         */
+        
+       /* let url = URL(string: "http://localhost:3000/persons")
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue))
+        }
+        task.resume()
+        */
+        
+        appDelegate().updateDataFromServer()
+        
+        
+        let fetchRequest = NSFetchRequest<Person>(entityName : "Person")
+        let sortFirstName = NSSortDescriptor(key: "firstName", ascending: true)
+        let sortLastName = NSSortDescriptor(key: "lastName", ascending: true)
+        fetchRequest.sortDescriptors = [sortFirstName , sortLastName]
+        
+        resultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.appDelegate().persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        resultController.delegate = self
+        
+        try? resultController.performFetch()
+        self.tableView.reloadData()
         // Method calling at the database to get a list of users and fill the contacts array
-        reloadDataFromDatabase()
+     /*   reloadDataFromDatabase()  */
         
         // check if it's the first time the user launch the app
         if(UserDefaults.standard.isFirstLaunch()){
@@ -50,7 +77,7 @@ class ContactsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         // Make sure that the table is up to date when the view is called
-        reloadDataFromDatabase()
+        //   reloadDataFromDatabase()
     }
 
     @objc func addContactPress(){
@@ -60,24 +87,34 @@ class ContactsTableViewController: UITableViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
 
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        if let frc = self.resultController {
+            return frc.sections!.count
+        }
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return contacts.count
+        guard let sections = self.resultController?.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        return sectionInfo.numberOfObjects
     }
 
         // Adapt the cells of the table to the array of persons
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableViewCell", for: indexPath)
 
-        if let contactCell = cell as? ContactTableViewCell{
-            contactCell.firstNameLabel.text = contacts[indexPath.row].firstName
-            contactCell.lastNameLabel.text = contacts[indexPath.row].lastName
+        
+        
+        if let contactCell = cell as? ContactTableViewCell {
+            
+            let person = resultController.object(at: indexPath)
+            
+            contactCell.firstNameLabel.text = person.firstName
+            contactCell.lastNameLabel.text = person.lastName
             
         }
         return cell
@@ -85,10 +122,15 @@ class ContactsTableViewController: UITableViewController {
     
     // Onclick on each cells
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let contact = self.resultController?.object(at: indexPath) else{
+            return
+        }
+        
         let detailViewController = DetailViewController(nibName: nil, bundle: nil)
         detailViewController.delegate = self
-        detailViewController.person = self.contacts[indexPath.row]
+        detailViewController.person = contact
         self.navigationController?.pushViewController(detailViewController, animated: true)
+        
     }
     
     // Control of the height of each cells
@@ -97,12 +139,15 @@ class ContactsTableViewController: UITableViewController {
     }
     
     // Method in charge of loading the data from the DB
-    func reloadDataFromDatabase(){
+/*    func reloadDataFromDatabase(){
         // Gonna fetch the Persons in the DB
         let fetchRequest = NSFetchRequest<Person>(entityName : "Person")
         let sortFirstName = NSSortDescriptor(key: "firstName", ascending: true)
         let sortLastName = NSSortDescriptor(key: "lastName", ascending: true)
         fetchRequest.sortDescriptors = [sortFirstName , sortLastName]
+        
+        resultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: NSManagedObjectContext, sectionNameKeyPath: self.appDelegate().persistentContainer.viewContext, cacheName: nil)
+        resultController.delegate = self
         
         let context = self.appDelegate().persistentContainer.viewContext
         print (try? context.fetch(fetchRequest))
@@ -114,26 +159,28 @@ class ContactsTableViewController: UITableViewController {
         contacts = personDB
         self.tableView.reloadData()
     }
-    
+    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+
 }
 
 extension ContactsTableViewController : AddViewControllerDelegate{
     
     func addNewContact() {
         self.navigationController?.popViewController(animated: true)
-        self.tableView.reloadData()
+       // self.tableView.reloadData()
     }
 }
 
 extension ContactsTableViewController : DetailViewControllerDelegate{
     func deleteContact(){
         self.navigationController?.popViewController(animated: true)
-        self.tableView.reloadData()
+     //   self.tableView.reloadData()
     }
     
 }
@@ -151,6 +198,21 @@ extension UserDefaults {
         UserDefaults.standard.set(false, forKey: DefaultPreferencesKey.isFirstLaunch.rawValue)
     }
 }
+
+extension ContactsTableViewController : NSFetchedResultsControllerDelegate{
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.reloadData()
+    }
+    
+}
+
+   
+
+
+
+
+
 
 
 

@@ -21,12 +21,25 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var progressBar: UIProgressView!
     weak var delegate: DetailViewControllerDelegate?
     var isCancelled = false
+    @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Apply the data to the view
         firstNameLabel.text=person?.firstName
         lasNameLabel.text=person?.lastName
+        print("Begin of code")
+        var originalUrl : String = ""
+        if person?.avatarURL == nil  || person?.avatarURL == "" {
+            originalUrl = "http://www.apple.com/euro/ios/ios8/a/generic/images/og.png"
+        }else{
+            originalUrl = person!.avatarURL!
+        }
+        if let url = URL(string: originalUrl) {
+            imageView.contentMode = .scaleAspectFit
+            downloadImage(url: url)
+        }
+        print("End of code. The image will continue downloading in the background and it will be loaded when it ends.")
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,6 +106,25 @@ class DetailViewController: UIViewController {
             }
         }
     }
+    
+    func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data, response, error)
+            }.resume()
+    }
+    // Image Loading
+    func downloadImage(url: URL) {
+        print("Download Started")
+        getDataFromUrl(url: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            print(response?.suggestedFilename ?? url.lastPathComponent)
+            print("Download Finished")
+            DispatchQueue.main.async() {
+                self.imageView.image = UIImage(data: data)
+            }
+        }
+    }
+
    
 
 }

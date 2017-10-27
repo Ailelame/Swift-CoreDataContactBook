@@ -22,6 +22,7 @@
 		E9038B1E1FA1C72F00CBC503 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9038B0F1FA1C72F00CBC503 /* Assets.xcassets */; };
 		E9038B1F1FA1C72F00CBC503 /* AddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9038B101FA1C72F00CBC503 /* AddViewController.xib */; };
 		E9038B211FA1C72F00CBC503 /* AddressBookSwift4.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9038B121FA1C72F00CBC503 /* AddressBookSwift4.xcdatamodeld */; };
+		E9E889741FA20AB300199B87 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E889731FA20AB300199B87 /* Person.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		E9038B0F1FA1C72F00CBC503 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9038B101FA1C72F00CBC503 /* AddViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddViewController.xib; sourceTree = "<group>"; };
 		E9038B131FA1C72F00CBC503 /* AddressBookSwift4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AddressBookSwift4.xcdatamodel; sourceTree = "<group>"; };
+		E9E889731FA20AB300199B87 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				E9038B081FA1C72E00CBC503 /* Main.storyboard */,
 				E9038B0C1FA1C72E00CBC503 /* names.plist */,
 				E9038B041FA1C72D00CBC503 /* AddressBookSwiftVersion2.0-Bridging-Header.h */,
+				E9E889731FA20AB300199B87 /* Person.swift */,
 			);
 			path = AddressBookSwiftVersion2.0;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				E9038B191FA1C72F00CBC503 /* ContactTableViewCell.swift in Sources */,
 				E9038B181FA1C72F00CBC503 /* AppDelegate.swift in Sources */,
 				E9038B1C1FA1C72F00CBC503 /* ContactsTableViewController.swift in Sources */,
+				E9E889741FA20AB300199B87 /* Person.swift in Sources */,
 				E9038B141FA1C72F00CBC503 /* AddViewController.swift in Sources */,
 				E9038B151FA1C72F00CBC503 /* DetailViewController.swift in Sources */,
 			);

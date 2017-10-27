@@ -48,6 +48,7 @@ class AddViewController: UIViewController {
             }catch{
                 print(error.localizedDescription)
             }
+            appDelegate.addContact(firstName: firstName, lastName: lastName)
             // Use of the delegate to go back to the table view activity
             self.delegate?.addNewContact()
         }
