@@ -20,71 +20,64 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var abortButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var imageView: UIImageView!
     weak var delegate: DetailViewControllerDelegate?
     var isCancelled = false
-    @IBOutlet weak var imageView: UIImageView!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Apply the data to the view
-        firstNameLabel.text=person?.firstName
-        lasNameLabel.text=person?.lastName
+       
+        firstNameLabel.text=person?.firstName                                               // Assign FirstNAme
+        lasNameLabel.text=person?.lastName                                                  // Assign lastNAme
+        
+        // Methods to get the image
         print("Begin of code")
         var originalUrl : String = ""
-        if person?.avatarURL == nil  || person?.avatarURL == "" {
-            originalUrl = "http://www.apple.com/euro/ios/ios8/a/generic/images/og.png"
+        if person?.avatarURL == nil  || person?.avatarURL == "" || person?.avatarURL == "ERROR" {  // Check if the avatarUrl of the object is usable
+            originalUrl = "http://www.apple.com/euro/ios/ios8/a/generic/images/og.png"      // Default Url
         }else{
-            originalUrl = person!.avatarURL!
+            originalUrl = person!.avatarURL!                                                //Assign correct url
         }
         if let url = URL(string: originalUrl) {
-            imageView.contentMode = .scaleAspectFit
-            downloadImage(url: url)
+            downloadImage(url: url)                                                         // Download the picture
         }
-        print("End of code. The image will continue downloading in the background and it will be loaded when it ends.")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
     @IBAction func deleteAction(_ sender: Any) {
-        guard let contact = person else{
+        guard let contact = person else{                                                    // Check if person is not nil
             return
         }
-        // Alert before deleting
+                                            // Alert before deleting
         let alertController = UIAlertController(title: "Suppression", message: "Voulez vous vraiment supprimer ce contact?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         let back = UIAlertAction(title: "OK", style: .default) { ( back) in
-            //  Show the progress bar and the abort button
-            self.progressBar.alpha = 1
-            self.abortButton.alpha = 1
-            self.deleteButton.alpha = 0
-            // closure at the end of the progress bar
-            self.launchProgressBar {
-                //Remove from server
-                self.appDelegate().deleteUser(id: self.person!.id)
-                //remove the person from the database
-                 let context = self.appDelegate().persistentContainer.viewContext
-                context.delete(self.person!)
-                try? context.save()
-                
-                
-                
-                 self.delegate?.deleteContact()
+            
+            self.progressBar.alpha = 1                                                      // Show progressBar
+            self.abortButton.alpha = 1                                                      // Show abort button
+            self.deleteButton.alpha = 0                                                     // Hide delete button
+            
+            self.launchProgressBar {                                                        // closure at the end of the progress bar
+                self.appDelegate().deleteUser(id: self.person!.id)                          // Remove from server
+                let context = self.appDelegate().persistentContainer.viewContext            // Instantiate DB
+                context.delete(self.person!)                                                // Remove person from database
+                try? context.save()                                                         // Save context
+                 self.delegate?.deleteContact()                                             // Follow the delegate and go back to list view
             }
         }
-        alertController.addAction(cancelAction)
-        alertController.addAction(back)
-        self.present(alertController, animated:true)
+        alertController.addAction(cancelAction)                                             // Alert assignation
+        alertController.addAction(back)                                                     // Alert assignation
+        self.present(alertController, animated:true)                                        // Show alert
         
     }
-    @IBAction func abortButton(_ sender: Any) {
-        // Allows the user to cancel the removal of the contact
+    @IBAction func abortButton(_ sender: Any) {                                             // Allows the user to cancel the removal of the contact
         if(isCancelled == false){
-           isCancelled=true
-           progressBar.setProgress(0, animated: true)
+           isCancelled=true                                                                 // Toggle the isCancelled variable to abord the progress of the progressbar
+           progressBar.setProgress(0, animated: true)                                       // Reinitialize the progress bar 
         }
     }
     
