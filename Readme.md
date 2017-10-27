@@ -10,3 +10,32 @@ It will store those contacts in a super private database and it can even use the
 Using the power of the JSON format, it'll magically share the informations at premium speed.
 
 Save a squirrel, download the app ! 
+
+
+
+
+## Install a local JSON Server
+
+In order to install a local server on your computer, you first need to have to NodeJs set up :
+https://nodejs.org/en/
+
+Then, we are going to use JSON Server to launch a local server 
+
+Install it with:
+
+``` npm install -g json-server ```
+
+Download the db.json in the repository. This file contains the JSON used to generate the cell in the TableView.
+
+Once it's download, got to the directory of the db.json file and use :
+
+``` json-server --watch db.json ```
+
+Your server should now be up and running! 
+
+
+If there is any issue, I invite you to check their GitHub page ==> https://github.com/typicode/json-server
+
+
+
+Keep calm and continue coding
