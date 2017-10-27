@@ -14,10 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    // Get the contact from the server
     func updateDataFromServer(){
         let url = URL(string: "http://localhost:3000/persons")
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            
             guard let data = data else{
                 return
             }
@@ -27,36 +27,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
             }
             print(jsonDict)
-            
-            // fetch tableau
-            
+            // Send the data to other function to check the difference with the CoreData DB
             self.updateDataFromJsonData(json: jsonDict)
-            
-            /*   let context = self.persistentContainer.viewContext
-             for personDict in jsonDict{
-             let person = Person(entity: Person.entity(), insertInto: context)
-             person.firstName = personDict ["surname"] as? String ?? "DefaultName"
-             person.lastName = personDict ["lastname"] as? String ?? "DefaultLastName"
-             person.id = personDict ["id"] as? Int32 ?? -1
-             }
-             try? context.save()
-             */
         }
         task.resume()
     }
     
     
-    func updateDataFromJsonData(json: [[String : Any]]){
+    func updateDataFromJsonData(json: [[String : Any]]){                    // Passed in data from remote DB
         let sort = NSSortDescriptor(key: "id", ascending: true)
         let fetchRequest = NSFetchRequest<Person>(entityName: "Person")
         fetchRequest.sortDescriptors = [sort]
         
         let context = self.persistentContainer.viewContext
-        let persons : [Person] = try! context.fetch(fetchRequest)
+        let persons : [Person] = try! context.fetch(fetchRequest)           // Data from local DB
+        // Create an array of id
         let personIds = persons.map({ (p) -> Int32 in
             return p.id
         })
-        
+        // Create another array of id
         let serversId = json.map { (dict) -> Int in
             return dict["id"] as? Int ?? 0
         }
@@ -95,8 +84,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    // Add a contact
     func addContact(firstName : String, lastName : String){
         let url = URL(string: "http://localhost:3000/persons")
+        // Creation of a new contact with what the addViewController sends us
         let newContact : [String: Any] = ["lastname" : lastName, "surname" : firstName, "pictureUrl" : "http://media.rtl.fr/cache/rGFoG3N32J0OTqKOhyjU8Q/880v587-0/online/image/2017/0412/7788094382_un-ecureuil-curieux-plonge-sa-tete-dans-une-fleur.jpg"]
         print(newContact)
         
@@ -104,25 +95,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         request.httpMethod = "POST"
         request.httpBody = try! JSONSerialization.data(withJSONObject: newContact, options: .prettyPrinted)
         request.setValue("application/json", forHTTPHeaderField: "Content-type")
-        // Add other verbs here
         
         let task = URLSession.shared.dataTask(with: request) {
             (data, response, error) in
-            /*              CORRECTION 
-             if let data = data {
-             let jsonDic = try? JSONSeialization.jsonObject(with : data, options : JSONSerialization.ReadingOptions.mutableContainers) as? [String : Any]
-             
-             guard let dict = jsonDict as? [String : Any] else{
-                 return
-             }
-            
-             let perosnne = Person(entity: Person.entity(), insertInto: sef.persistantContainer.viewContext)
-                  person.lastName = dict["lastName"] as? String
-                  person.firstName = dict["surname"] as? String
-                  person.pictureURL = dict["pictureURL"] as? String
-                  person.id = Int32(dict["id"] as? Int ?? 0
-             SAVE CONTEXT
-            */
             do {
                     guard let data = data, error == nil else {
                         print(error?.localizedDescription ?? "No data")
@@ -137,31 +112,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("json error: \(error.localizedDescription)")
             }
         }
-        task.resume()
+        task.resume()       // Sends the json with new contacy
     }
     
     //DELETE from server
     func deleteUser(id : Int32){
         let builtUrl = "http://localhost:3000/persons/\(id)"
-      //  print(builtUrl)
         let url = URL(string: builtUrl )
         var  request = URLRequest(url: url!)
         request.httpMethod = "DELETE"
-       // let newContact : [String: Any] = ["lastname" : person.lastName, "surname" : person.firstName, "pictureUrl" : person.avatarURL , "id" : person.id]
-        //request.httpBody = try! JSONSerialization.data(withJSONObject: newContact, options: .prettyPrinted)
-       // request.setValue("application/json", forHTTPHeaderField: "Content-type")
         let task = URLSession.shared.dataTask(with: request) {
             (data, response, error) in
             do {
-           /*     guard let data = data, error == nil else {
-                    print(error?.localizedDescription ?? "No data")
-                    return
-                }
-                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-                if let responseJSON = responseJSON as? [String: Any] {
-                    print(responseJSON)
-                }
-                */
             } catch let error as NSError {
                 print("json error: \(error.localizedDescription)")
             }
@@ -244,8 +206,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    
     
 }
 

@@ -49,9 +49,6 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func deleteAction(_ sender: Any) {
-        guard let contact = person else{                                                    // Check if person is not nil
-            return
-        }
                                             // Alert before deleting
         let alertController = UIAlertController(title: "Suppression", message: "Voulez vous vraiment supprimer ce contact?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)

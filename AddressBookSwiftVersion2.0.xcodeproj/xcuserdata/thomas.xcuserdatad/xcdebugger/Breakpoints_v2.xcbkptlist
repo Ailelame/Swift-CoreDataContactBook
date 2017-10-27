@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddressBookSwiftVersion2.0/ContactsTableViewController.swift"
-            timestampString = "530809630.150849"
+            timestampString = "530811711.182686"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "controllerDidChangeContent(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddressBookSwiftVersion2.0/AppDelegate.swift"
-            timestampString = "530809630.151143"
+            timestampString = "530811711.183816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddressBookSwiftVersion2.0/AppDelegate.swift"
-            timestampString = "530809630.151209"
+            timestampString = "530811711.183964"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "22"
@@ -58,27 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddressBookSwiftVersion2.0/AppDelegate.swift"
-            timestampString = "530809630.151277"
+            timestampString = "530811711.184092"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "updateDataFromServer()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AddressBookSwiftVersion2.0/AppDelegate.swift"
-            timestampString = "530809630.151335"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -90,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddressBookSwiftVersion2.0/DetailViewController.swift"
-            timestampString = "530809630.151392"
+            timestampString = "530811711.184207"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "33"
@@ -106,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddressBookSwiftVersion2.0/AppDelegate.swift"
-            timestampString = "530809630.151798"
+            timestampString = "530811711.185863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "deleteUser(id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddressBookSwiftVersion2.0/AppDelegate.swift"
-            timestampString = "530809630.151855"
+            timestampString = "530811711.186"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "deleteUser(id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AddressBookSwiftVersion2.0/AppDelegate.swift"
-            timestampString = "530809630.151907"
+            timestampString = "530811711.186116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "deleteUser(id:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -10,7 +10,6 @@ import UIKit
 
 class ContactTableViewCell: UITableViewCell {
 
-
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var button: UIButton!
@@ -19,7 +18,7 @@ class ContactTableViewCell: UITableViewCell {
     var task : URLSessionDataTask?
     var avatarUrl : String? {
         didSet {
-            task?.cancel()
+            task?.cancel()                  // Helps with scrolling too quickly and having to load too many images
             self.downloadImage()
         }
     }
@@ -37,20 +36,16 @@ class ContactTableViewCell: UITableViewCell {
         guard let urlString = avatarUrl,  let url = URL(string: urlString) else {
             return
         }
-        
         print("Download Started")
         getDataFromUrl(url: url) { data, response, error in
             guard let data = data else { return }
             print(response?.suggestedFilename ?? url.lastPathComponent)
             print("Download Finished")
             DispatchQueue.main.async() {
-                
-                self.imageViewAvatar.image = UIImage(data: data)
+                self.imageViewAvatar.image = UIImage(data: data)        // Assign image to image view
             }
         }
     }
- 
-   
     
     override func awakeFromNib() {
         super.awakeFromNib()

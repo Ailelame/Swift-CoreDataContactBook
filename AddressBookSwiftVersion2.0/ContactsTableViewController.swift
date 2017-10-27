@@ -28,32 +28,17 @@ class ContactsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*
-                 URL CONNEXION
-         */
-        
-       /* let url = URL(string: "http://localhost:3000/persons")
-        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue))
-        }
-        task.resume()
-        */
-        
+        // Check out the data from the server
         appDelegate().updateDataFromServer()
-        
-        
         let fetchRequest = NSFetchRequest<Person>(entityName : "Person")
         let sortFirstName = NSSortDescriptor(key: "firstName", ascending: true)
         let sortLastName = NSSortDescriptor(key: "lastName", ascending: true)
         fetchRequest.sortDescriptors = [sortFirstName , sortLastName]
-        
         resultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.appDelegate().persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         resultController.delegate = self
         
         try? resultController.performFetch()
         self.tableView.reloadData()
-        // Method calling at the database to get a list of users and fill the contacts array
-     /*   reloadDataFromDatabase()  */
         
         // check if it's the first time the user launch the app
         if(UserDefaults.standard.isFirstLaunch()){
@@ -63,6 +48,7 @@ class ContactsTableViewController: UITableViewController {
             alertController.addAction(back)
             self.present(alertController, animated:true)
         }
+        
         /// Line ensuring that the user will not see the message anymore
         UserDefaults.standard.userSawWelcomeMessage()
         
