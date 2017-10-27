@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let task = URLSession.shared.dataTask(with: request) {
             (data, response, error) in
-            /*
+            /*              CORRECTION 
              if let data = data {
              let jsonDic = try? JSONSeialization.jsonObject(with : data, options : JSONSerialization.ReadingOptions.mutableContainers) as? [String : Any]
              
@@ -167,13 +167,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         task.resume()
+        
     }
- 
- 
-    
-    
-    
-    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

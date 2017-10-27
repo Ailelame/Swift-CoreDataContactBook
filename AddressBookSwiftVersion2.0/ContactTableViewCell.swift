@@ -14,6 +14,43 @@ class ContactTableViewCell: UITableViewCell {
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var imageViewAvatar: UIImageView!
+    
+    var task : URLSessionDataTask?
+    var avatarUrl : String? {
+        didSet {
+            task?.cancel()
+            self.downloadImage()
+        }
+    }
+    
+    func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            completion(data, response, error)
+            }
+        task.resume()
+        self.task = task
+    }
+    // Image Loading
+    func downloadImage() {
+        
+        guard let urlString = avatarUrl,  let url = URL(string: urlString) else {
+            return
+        }
+        
+        print("Download Started")
+        getDataFromUrl(url: url) { data, response, error in
+            guard let data = data else { return }
+            print(response?.suggestedFilename ?? url.lastPathComponent)
+            print("Download Finished")
+            DispatchQueue.main.async() {
+                
+                self.imageViewAvatar.image = UIImage(data: data)
+            }
+        }
+    }
+ 
+   
     
     override func awakeFromNib() {
         super.awakeFromNib()

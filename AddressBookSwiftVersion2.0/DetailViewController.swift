@@ -18,10 +18,12 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lasNameLabel: UILabel!
     @IBOutlet weak var abortButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var progressBar: UIProgressView!
     weak var delegate: DetailViewControllerDelegate?
     var isCancelled = false
     @IBOutlet weak var imageView: UIImageView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +60,7 @@ class DetailViewController: UIViewController {
             //  Show the progress bar and the abort button
             self.progressBar.alpha = 1
             self.abortButton.alpha = 1
+            self.deleteButton.alpha = 0
             // closure at the end of the progress bar
             self.launchProgressBar {
                 //Remove from server
@@ -108,6 +111,7 @@ class DetailViewController: UIViewController {
                 //Hide the progress bar and the abort button
                 self.progressBar.alpha = 0
                 self.abortButton.alpha = 0
+                self.deleteButton.alpha = 1
                 self.isCancelled=false
             }
         }

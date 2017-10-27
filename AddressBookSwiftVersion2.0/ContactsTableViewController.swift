@@ -106,15 +106,15 @@ class ContactsTableViewController: UITableViewController {
         // Adapt the cells of the table to the array of persons
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableViewCell", for: indexPath)
-
-        
         
         if let contactCell = cell as? ContactTableViewCell {
             
             let person = resultController.object(at: indexPath)
-            
             contactCell.firstNameLabel.text = person.firstName
             contactCell.lastNameLabel.text = person.lastName
+            contactCell.avatarUrl = person.avatarURL
+            
+          
             
         }
         return cell
@@ -165,6 +165,8 @@ class ContactsTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+ 
 
 
 }

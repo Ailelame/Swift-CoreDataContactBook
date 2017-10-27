@@ -53,6 +53,10 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88H-v4-PoA">
+                                            <rect key="frame" x="0.0" y="-3" width="118" height="85"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="xxg-fF-PTA" secondAttribute="trailing" constant="10" id="0sn-NA-aVK"/>
@@ -65,6 +69,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="firstNameLabel" destination="xxg-fF-PTA" id="Gau-6o-xjV"/>
+                                    <outlet property="imageViewAvatar" destination="88H-v4-PoA" id="OJi-Ft-pSM"/>
                                     <outlet property="lastNameLabel" destination="dbU-F3-pe2" id="fkS-CC-7OU"/>
                                 </connections>
                             </tableViewCell>
