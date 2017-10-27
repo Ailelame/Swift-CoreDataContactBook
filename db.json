@@ -25,10 +25,16 @@
       "id": 21
     },
     {
-      "lastname": "Reborn",
+      "lastname": "Blum",
+      "surname": "Léon",
+      "pictureUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Lion_d%27Afrique.jpg/1200px-Lion_d%27Afrique.jpg",
+      "id": 23
+    },
+    {
+      "lastname": "Chaton",
       "surname": "Chaton",
       "pictureUrl": "https://www.wanimo.com/veterinaire/images/articles/chat/chaton-diarrhee.jpg",
-      "id": 22
+      "id": 24
     }
   ]
 }
