@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func updateDataFromServer(){
-        
         let url = URL(string: "http://localhost:3000/persons")
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             
@@ -33,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             self.updateDataFromJsonData(json: jsonDict)
             
-            
             /*   let context = self.persistentContainer.viewContext
              for personDict in jsonDict{
              let person = Person(entity: Person.entity(), insertInto: context)
@@ -43,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
              }
              try? context.save()
              */
-            
         }
         task.resume()
     }
@@ -141,12 +138,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         task.resume()
-        
-        
-        
-        
     }
     
+    //DELETE from server
+    func deleteUser(id : Int32){
+        let builtUrl = "http://localhost:3000/persons/\(id)"
+      //  print(builtUrl)
+        let url = URL(string: builtUrl )
+        var  request = URLRequest(url: url!)
+        request.httpMethod = "DELETE"
+       // let newContact : [String: Any] = ["lastname" : person.lastName, "surname" : person.firstName, "pictureUrl" : person.avatarURL , "id" : person.id]
+        //request.httpBody = try! JSONSerialization.data(withJSONObject: newContact, options: .prettyPrinted)
+       // request.setValue("application/json", forHTTPHeaderField: "Content-type")
+        let task = URLSession.shared.dataTask(with: request) {
+            (data, response, error) in
+            do {
+           /*     guard let data = data, error == nil else {
+                    print(error?.localizedDescription ?? "No data")
+                    return
+                }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    print(responseJSON)
+                }
+                */
+            } catch let error as NSError {
+                print("json error: \(error.localizedDescription)")
+            }
+        }
+        task.resume()
+    }
+ 
+ 
     
     
     

@@ -46,6 +46,7 @@ class DetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    
     @IBAction func deleteAction(_ sender: Any) {
         guard let contact = person else{
             return
@@ -59,10 +60,15 @@ class DetailViewController: UIViewController {
             self.abortButton.alpha = 1
             // closure at the end of the progress bar
             self.launchProgressBar {
+                //Remove from server
+                self.appDelegate().deleteUser(id: self.person!.id)
                 //remove the person from the database
                  let context = self.appDelegate().persistentContainer.viewContext
                 context.delete(self.person!)
                 try? context.save()
+                
+                
+                
                  self.delegate?.deleteContact()
             }
         }
