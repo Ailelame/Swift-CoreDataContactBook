@@ -97,7 +97,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func addContact(firstName : String, lastName : String){
         let url = URL(string: "http://localhost:3000/persons")
-        let newContact : [String: Any] = ["lastname" : lastName, "surname" : firstName, "pictureUrl" : "http://lageekerie.com/11912/figurine-pop-batman-arkham-knight.jpg"]
+        let newContact : [String: Any] = ["lastname" : lastName, "surname" : firstName, "pictureUrl" : "http://media.rtl.fr/cache/rGFoG3N32J0OTqKOhyjU8Q/880v587-0/online/image/2017/0412/7788094382_un-ecureuil-curieux-plonge-sa-tete-dans-une-fleur.jpg"]
         print(newContact)
         
         var  request = URLRequest(url: url!)
